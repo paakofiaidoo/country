@@ -1,5 +1,4 @@
 import App from "./App.svelte";
-import data from '../data/datapack/countries.json'
 
 const app = new App({
   target: document.body,
@@ -768,7 +767,6 @@ const app = new App({
         phone: "233",
         updatedAt: "2020-04-13T18:17:50.977Z",
       },
-	  data
     ],
   },
 });
