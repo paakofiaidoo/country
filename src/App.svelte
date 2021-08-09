@@ -3,7 +3,11 @@
 
   export let countries;
   let selectedCountry = "vCIN9WyEHn",
-    selectedContinent = null;
+    selectedContinent = null,
+    show = {
+      cities: true,
+      citiesOptions: {},
+    };
 
   const countryData = (countId) => {
     return countries.filter((id) => id !== countId)[0];
@@ -33,15 +37,16 @@
 
   <div class="options">
     <div class="option">
-      <input type="checkbox" id="city" value="city" />
-      <label for="city">city</label>
+      <input type="checkbox" id="city" bind:checked={show.cities} />
+
+      <label for="city">Show Citites</label>
     </div>
   </div>
 
   <div class="output">
     {#if selectedCountry !== ""}
       <div>
-        <Country country={countryData(selectedCountry)} />
+        <Country {show} country={countryData(selectedCountry)} />
       </div>
     {:else}
       <p>chose a country</p>

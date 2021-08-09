@@ -1,5 +1,7 @@
 <script>
-  export let country;
+  import City from "./City.svelte";
+  export let country, show;
+
   const { name, capital, continent, currency, emoji, phone, cities } = country;
 </script>
 
@@ -12,24 +14,43 @@
     <p>Flag : {emoji}</p>
     <p>Phone : +{phone}</p>
   </div>
-  {#each cities.results as { name, population, province, location }}
-    <div class="city">
-      <p>{name}</p>
-      <p>Population : {population ? population : "unknown"}</p>
-      <p>
-        Province : {province ? province : "unknown"}
-      </p>
-      <p>
-        Location:
-        <span>
-          latitude:{location.latitude}
-        </span>
-        <span>
-          log: {location.longitude}
-        </span>
-      </p>
+  {#if show.cities}
+    <div class="options">
+      <div class="option">
+        <input
+          type="checkbox"
+          id="city"
+          bind:checked={show.citiesOptions.population}
+        />
+
+        <label for="city">Show Population </label>
+      </div>
+      <div class="option">
+        <input
+          type="checkbox"
+          id="city"
+          bind:checked={show.citiesOptions.province}
+        />
+
+        <label for="city">Show Province </label>
+      </div>
+      <div class="option">
+        <input
+          type="checkbox"
+          id="city"
+          bind:checked={show.citiesOptions.location}
+        />
+
+        <label for="city">Show Location </label>
+      </div>
     </div>
-  {/each}
+  {/if}
+
+  {#if show.cities}
+    {#each cities.results as city}
+      <City show={show.citiesOptions} {city} />
+    {/each}
+  {/if}
 </div>
 
 <style>
@@ -38,10 +59,12 @@
     justify-content: space-around;
     flex-wrap: wrap;
   }
-  .city {
-    border: 1px solid #666;
+  .options,
+  .option {
+    display: flex;
   }
-  .city:nth-child(even) {
-    background-color: #ddd;
+  .options {
+    justify-content: space-between;
+    align-items: center;
   }
 </style>
