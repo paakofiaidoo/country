@@ -1,6 +1,8 @@
 <script>
+  import Country from "./Country.svelte";
+
   export let countries;
-  let selectedCountry = "",
+  let selectedCountry = "vCIN9WyEHn",
     selectedContinent = null;
 
   const countryData = (countId) => {
@@ -39,7 +41,7 @@
   <div class="output">
     {#if selectedCountry !== ""}
       <div>
-        {console.log( countryData(selectedCountry))}
+        <Country country={countryData(selectedCountry)} />
       </div>
     {:else}
       <p>chose a country</p>
